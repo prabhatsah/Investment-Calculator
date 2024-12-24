@@ -1,22 +1,6 @@
 import { useState } from "react";
 
-export default function UserInput() {
-  const [userInput, setUserInput] = useState({
-    initialInvestment: 10000,
-    annualInvestment: 1200,
-    return: 6,
-    duration: 10,
-  });
-
-  function handleChange(field, value) {
-    setUserInput((prevUserInput) => {
-      return {
-        ...prevUserInput,
-        [field]: value,
-      };
-    });
-  }
-
+export default function UserInput({ userInput, onChange }) {
   return (
     <>
       <div id="user-input">
@@ -26,7 +10,7 @@ export default function UserInput() {
             type="number"
             required
             onChange={(event) =>
-              handleChange("initialInvestment", event.target.value)
+              onChange("initialInvestment", parseInt(event.target.value))
             }
             value={userInput.initialInvestment}
           />
@@ -37,7 +21,7 @@ export default function UserInput() {
             type="number"
             required
             onChange={(event) =>
-              handleChange("annualInvestment", event.target.value)
+              onChange("annualInvestment", parseInt(event.target.value))
             }
             value={userInput.annualInvestment}
           />
@@ -47,8 +31,10 @@ export default function UserInput() {
           <input
             type="number"
             required
-            onChange={(event) => handleChange("return", event.target.value)}
-            value={userInput.return}
+            onChange={(event) =>
+              onChange("return", parseInt(event.target.value))
+            }
+            value={userInput.expectedReturn}
           />
         </div>
         <div id="input-group">
@@ -56,7 +42,9 @@ export default function UserInput() {
           <input
             type="number"
             required
-            onChange={(event) => handleChange("duration", event.target.value)}
+            onChange={(event) =>
+              onChange("duration", parseInt(event.target.value))
+            }
             value={userInput.duration}
           />
         </div>
